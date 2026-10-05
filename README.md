@@ -27,9 +27,15 @@ GitHub にそのまま置いても中身は読めません。パスワードは 
 - 学習ログは端末（ブラウザ）に保存されます。別端末へ移すときは「JSON 書き出し」→ もう一方で「JSON 取り込み」
 
 ## 3. 中身について
-- 社内情報（Wiki リンク・社内制度・昇進プロセス・ポジション詳細）は**この版には入っていません**（公開サービスに置くため機械的に除去）。
-  それらは Canopy 版（社内ネットワーク専用）にだけあります
+- **Canopy 版と同じ中身**（社内 Wiki リンク・Internal Transfer Portal・社内サポート・Step 1／4／5）が入っています。社内リンクには
+  「社内」ラベルが付いていて、Amazon ネットワークの外では開けません。**スマホでは Amazon Enterprise Access（AEA）アプリで開く**
+  （リンクを長押し → リンクをコピー → AEA のアドレス欄に貼る）。PC なら社内ネットワーク／VPN 上のブラウザでそのまま開けます
+- 社内情報を含むので、この `index.html` は**暗号化した状態でだけ**置くこと。平文のプレビュー（`_work/gh_preview_full.html`）は絶対にアップロードしない
+- Canopy 版だけにある機能: 「更新」ボタン（求人・資格価格・社内 Wiki の最新化）、学習ログのサーバー保存（PC とスマホで共有）。
+  GitHub 版の Step 1 右上の「Canopy 版（自動更新）」からいつでも飛べます
 - フォント: Ember Modern Display Standard（英数）／メイリオ（和文）。ロゴは Simple Icons（CC0）、求人リンクは各社の公式採用サイト
 
-## 4. 中身が気になるときの確認
-`scripts/15_build_github_pack.py` は作成時に「社内ホストへのリンク 0 件・禁止語 0 件」を機械チェックして、結果を `github_pack/audit.json` に書きます。
+## 4. 作り直し・確認
+- `scripts/15_build_github_pack.py --password-file _work/gh_password.txt` が `github_pack/index.html`（暗号化）と `AWS_GitHUB.zip`（アップロード用 3 点）を作る。
+  `--mode public` を付けると旧・社内情報を除いた版になる
+- 作成時の監査結果（社内リンク件数・残存絵文字・セクション一覧）は `_work/gh_audit.json`
